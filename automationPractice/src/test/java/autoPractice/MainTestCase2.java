@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class MainTestCase2 {
 
@@ -26,15 +27,32 @@ public class MainTestCase2 {
 //			break;
 //		}
 		
-		driver.get("https://demo.seleniumeasy.com/basic-checkbox-demo.html");
+//		driver.get("https://demo.seleniumeasy.com/basic-checkbox-demo.html");
+//		
+//		boolean flag=driver.findElement(By.id("isAgeSelected")).isSelected();
+//		if(!flag) {
+//			driver.findElement(By.id("isAgeSelected")).click();
+//		}
+//		
+//		boolean flag1=driver.findElement(By.xpath("(//input[@type='checkbox'])[3]")).isEnabled();
+//		System.out.println(flag1);
 		
-		boolean flag=driver.findElement(By.id("isAgeSelected")).isSelected();
-		if(!flag) {
-			driver.findElement(By.id("isAgeSelected")).click();
+		driver.get("https://demo.seleniumeasy.com/basic-select-dropdown-demo.html");
+		
+		Select sel=new Select(driver.findElement(By.id("select-demo")));
+		sel.selectByValue("Thursday");
+		
+		Select mulSel=new Select(driver.findElement(By.id("multi-select")));
+		if(mulSel.isMultiple()) {
+			mulSel.selectByIndex(0);
+			mulSel.selectByValue("New York");
+			mulSel.selectByVisibleText("Texas");
 		}
 		
-		boolean flag1=driver.findElement(By.xpath("(//input[@type='checkbox'])[3]")).isEnabled();
-		System.out.println(flag1);
+		List<WebElement> mulEle=mulSel.getAllSelectedOptions();
+		System.out.println(mulEle.size());
+		mulSel.deselectByIndex(4);
+		System.out.println(mulEle.get(1).getText());
 		
 		
 	}
